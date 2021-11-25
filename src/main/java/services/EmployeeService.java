@@ -32,6 +32,17 @@ public class EmployeeService extends ServiceBase {
     }
 
     /**
+     * 従業員テーブルのデータの件数を取得し、返却する
+     * @return 従業員テーブルのデータの件数
+     */
+    public long countAll() {
+        long empCount = (long) em.createNamedQuery(JpaConst.Q_EMP_COUNT, Long.class)
+                .getSingleResult();
+
+        return empCount;
+    }
+
+    /**
      * 社員番号、パスワードを条件に取得したデータをEmployeeViewのインスタンスで返却する
      * @param code 社員番号
      * @param plainPass パスワード文字列
