@@ -5,12 +5,11 @@
 
 <c:set var="action" value="${ForwardConst.ACT_EMP.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
-<c:set var="commUPD" value="${ForwardConst.CMD_UPDATE.getValue()}" />
+<c:set var="commUpd" value="${ForwardConst.CMD_UPDATE.getValue()}" />
 <c:set var="commDel" value="${ForwardConst.CMD_DESTROY.getValue()}" />
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
-
 
         <h2>id : ${employee.id} の従業員情報編集ページ</h2>
         <p>(パスワードは変更する場合のみ入力してください)</p>
@@ -24,8 +23,8 @@
         </p>
         <form method="POST"
                 action="<c:url value='?action=${action}&command=${commDel}' />">
-                <input type="hidden" name="${AttributeConst.EMP_ID.getValue()}">
-                <input type="hidden" name="${AttributeConst.TOKEN.getValue()}">
+                <input type="hidden" name="${AttributeConst.EMP_ID.getValue()}" value="${employee.id}" />
+                <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
         </form>
         <script>
         function confirmDestroy(){
