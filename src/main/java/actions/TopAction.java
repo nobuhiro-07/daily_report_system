@@ -7,6 +7,10 @@ import javax.servlet.ServletException;
 import constants.AttributeConst;
 import constants.ForwardConst;
 
+/**
+ * トップページに関する処理を行うActionクラス
+ *
+ */
 public class TopAction extends ActionBase {
 
     /**
