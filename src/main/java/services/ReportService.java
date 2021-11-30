@@ -23,7 +23,7 @@ public class ReportService extends ServiceBase {
      * @param page ページ数
      * @return 一覧画面に表示するデータのリスト
      */
-    public List<ReportView> getMinePerpage(EmployeeView employee, int page){
+    public List<ReportView> getMinePerPage(EmployeeView employee, int page) {
 
         List<Report> reports = em.createNamedQuery(JpaConst.Q_REP_GET_ALL_MINE, Report.class)
                 .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
@@ -32,6 +32,7 @@ public class ReportService extends ServiceBase {
                 .getResultList();
         return ReportConverter.toViewList(reports);
     }
+
     /**
      * 指定した従業員が作成した日報データの件数を取得し、返却する
      * @param employee
@@ -39,9 +40,10 @@ public class ReportService extends ServiceBase {
      */
     public long countAllMine(EmployeeView employee) {
 
-        long count = (long) em.createNamedQuery(JpaConst.Q_REP_COUNT_ALL_MINE, long.class)
+        long count = (long) em.createNamedQuery(JpaConst.Q_REP_COUNT_ALL_MINE, Long.class)
                 .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
                 .getSingleResult();
+
         return count;
     }
 
@@ -50,7 +52,7 @@ public class ReportService extends ServiceBase {
      * @param page ページ数
      * @return 一覧画面に表示するデータのリスト
      */
-    public List<ReportView> getAllPerPage(int page){
+    public List<ReportView> getAllPerPage(int page) {
 
         List<Report> reports = em.createNamedQuery(JpaConst.Q_REP_GET_ALL, Report.class)
                 .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
@@ -58,15 +60,17 @@ public class ReportService extends ServiceBase {
                 .getResultList();
         return ReportConverter.toViewList(reports);
     }
+
     /**
      * 日報テーブルのデータの件数を取得し、返却する
      * @return データの件数
      */
     public long countAll() {
-        long reports_count =(long) em.createNamedQuery(JpaConst.Q_REP_COUNT, Long.class)
+        long reports_count = (long) em.createNamedQuery(JpaConst.Q_REP_COUNT, Long.class)
                 .getSingleResult();
         return reports_count;
     }
+
     /**
      * idを条件に取得したデータをReportViewのインスタンスで返却する
      * @param id
@@ -81,17 +85,17 @@ public class ReportService extends ServiceBase {
      * @param rv 日報の登録内容
      * @return バリデーションで発生したエラーのリスト
      */
-    public List<String> create(ReportView rv){
+    public List<String> create(ReportView rv) {
         List<String> errors = ReportValidator.validate(rv);
-        if(errors.size() ==0) {
+        if (errors.size() == 0) {
             LocalDateTime ldt = LocalDateTime.now();
             rv.setCreatedAt(ldt);
             rv.setUpdatedAt(ldt);
             createInternal(rv);
         }
+
         //バリデーションで発生したエラーを返却（エラーがなければ0件の空リスト）
         return errors;
-
     }
 
     /**
